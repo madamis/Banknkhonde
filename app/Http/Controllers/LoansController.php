@@ -7,79 +7,51 @@ use App\Loan;
 
 class LoansController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return Loan::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show(Loan $loan)
     {
-        //
+        return $loan;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+    	//Check for valid details
+    	$this->validate($request, [
+            'reason' => 'required', 'amount' => 'required', 'duedate' => 'required', 'account'=> 'required'
+        ]);
+
+        $loan = Loan::create($request->all());
+
+        return response()->json($loan, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(Request $request, Loan $loan)
     {
-        //
-    }
+    	//Check for valid details
+    	$this->validate($request, [
+            'reason' => 'required', 'amount' => 'required', 'duedate' => 'required', 'account'=> 'required'
+        ]);
+        
+        $loan->update($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($loan, 201);
     }
+     /**
+    * Delete a particluar resource of Subscriber
+    *
+    * @param Obj Subscriber 
+    *
+    * @return json
+    */
+    public function delete(Loan $loan)
+    {
+        $loan->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return response()->json(null, 204);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+   
 }

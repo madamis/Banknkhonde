@@ -7,79 +7,50 @@ use App\Transaction;
 
 class TransactionsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return Transaction::all();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show(Transaction $transaction)
     {
-        //
+        return $transaction;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+    	//Check for valid details
+    	$this->validate($request, [
+            'reason' => 'required', 'amount' => 'required', 'status'=>'required', 'type' => 'required', 'account' => 'required'
+        ]);
+
+        $transaction = Transaction::create($request->all());
+
+        return response()->json($transaction, 201);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function update(Request $request, Transaction $transaction)
     {
-        //
-    }
+    	//Check for valid details
+    	$this->validate($request, [
+            'reason' => 'required', 'amount' => 'required', 'status'=>'required', 'type' => 'required', 'account' => 'required'
+        ]);
+        
+        $transaction->update($request->all());
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($transaction, 201);
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+     /**
+    * Delete a particluar resource of Subscriber
+    *
+    * @param Obj Subscriber 
+    *
+    * @return json
+    */
+    public function delete(Transaction $transaction)
     {
-        //
-    }
+        $transaction->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return response()->json(null, 204);
     }
 }
