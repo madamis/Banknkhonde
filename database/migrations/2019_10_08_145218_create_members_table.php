@@ -14,7 +14,7 @@ class CreateMembersTable extends Migration
     public function up()
     {
         Schema::create('members', function (Blueprint $table) {
-            $table->bigIncrements('member');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('username');
             $table->string('password');
@@ -26,7 +26,7 @@ class CreateMembersTable extends Migration
             $table->timestamps();
             // $table->primary('member');
 
-            $table->foreign('group')->references('group')->on('groups');
+            $table->foreign('group')->references('id')->on('groups');
 
         });
     }

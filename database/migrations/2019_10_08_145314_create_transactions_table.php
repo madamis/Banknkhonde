@@ -14,7 +14,7 @@ class CreateTransactionsTable extends Migration
     public function up()
     {
         Schema::create('transactions', function (Blueprint $table) {
-            $table->bigIncrements('transaction');
+            $table->bigIncrements('id');
             $table->string('reason');
             $table->string('amount');
             $table->string('status');
@@ -23,7 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->timestamps();
             // $table->primary('transaction');
 
-            $table->foreign('account')->references('account')->on('accounts');
+            $table->foreign('account')->references('id')->on('accounts');
 
         });
     }

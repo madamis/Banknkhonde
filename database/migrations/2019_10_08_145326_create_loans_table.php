@@ -14,7 +14,7 @@ class CreateLoansTable extends Migration
     public function up()
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->bigIncrements('loan');
+            $table->bigIncrements('id');
             $table->string('reason');
             $table->string('amount');
             $table->enum('status', array('not payed', 'partily payed', 'fully payed'));
@@ -23,7 +23,7 @@ class CreateLoansTable extends Migration
             $table->timestamps();
             // $table->primary('loan');
 
-            $table->foreign('account')->references('account')->on('accounts');
+            $table->foreign('account')->references('id')->on('accounts');
 
         });
     }

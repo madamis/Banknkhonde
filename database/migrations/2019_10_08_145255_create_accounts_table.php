@@ -14,7 +14,7 @@ class CreateAccountsTable extends Migration
     public function up()
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->bigIncrements('account');
+            $table->bigIncrements('id');
             $table->string('name');
             $table->string('numnber');
             $table->float('balance');
@@ -23,7 +23,7 @@ class CreateAccountsTable extends Migration
             $table->timestamps();
             // $table->primary('account');
 
-            $table->foreign('member')->references('member')->on('members');
+            $table->foreign('member')->references('id')->on('members');
 
         });
     }
