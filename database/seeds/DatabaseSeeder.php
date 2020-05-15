@@ -11,6 +11,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(GroupSeeder::class);
+        $this->call(MemberSeeder::class);
+        $this->call(ContactSeeder::class);
+        $this->call(AccountSeeder::class);
+        $this->call(FineSeeder::class);
+        $this->call(LoanSeeder::class);
+        $this->call(TransactionSeeder::class);
     }
 }
